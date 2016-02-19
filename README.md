@@ -41,3 +41,15 @@ Assumptions:
 Minimum SDK version: 4.0.3
 Target SDK version: 6.0
 
+
+ScreenShots:
+
+
+[![reatail store dualmode](https://github.com/ashishbhandari/RetailStore/blob/master/screenshots/device-2016-02-20-004350.png)](#features)
+
+
+https://github.com/ashishbhandari/RetailStore/blob/master/screenshots/device-2016-02-20-004451.png
+
+https://github.com/ashishbhandari/RetailStore/blob/master/screenshots/device-2016-02-20-004537.png
+
+
