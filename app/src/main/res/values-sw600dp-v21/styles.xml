@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Retailstore.Product" parent="Theme.Retailstore.Product.Base">
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowFullscreen">true</item>
+
+        <item name="android:windowElevation">16dp</item>
+    </style>
+
+</resources>

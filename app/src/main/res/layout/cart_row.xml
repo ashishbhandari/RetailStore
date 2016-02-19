@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.crazymin2.retailstore.ui.widget.ForegroundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/touch_area"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:foreground="?android:selectableItemBackground"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/spacing_normal"
+    android:paddingEnd="@dimen/padding_normal"
+    android:paddingLeft="@dimen/padding_normal"
+    android:paddingRight="@dimen/padding_normal"
+    android:paddingTop="@dimen/spacing_normal">
+
+    <com.crazymin2.retailstore.ui.widget.AspectRatioView
+        android:layout_width="@dimen/product_theme_cards_dealer_image_width"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/padding_normal"
+        android:layout_marginRight="@dimen/padding_normal"
+        app:aspectRatio="@dimen/aspect_4_3">
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_gravity="center"
+            android:layout_width="@dimen/product_theme_cards_image_width"
+            android:layout_height="@dimen/product_theme_cards_image_height"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_logo" />
+
+    </com.crazymin2.retailstore.ui.widget.AspectRatioView>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textAppearance="@style/TextAppearance.ProductTitle"
+            tools:text="Title" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/delete_butt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/padding_normal"
+        android:layout_marginStart="@dimen/padding_normal"
+        android:background="@drawable/ic_delete_black" />
+
+</com.crazymin2.retailstore.ui.widget.ForegroundLinearLayout>

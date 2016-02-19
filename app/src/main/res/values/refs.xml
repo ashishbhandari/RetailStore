@@ -1,0 +1,4 @@
+<resources>
+    <item name="schedule_item_touchoverlay_dark" type="drawable">@drawable/home_item_touchoverlay</item>
+    <item name="header_shadow" type="drawable">@drawable/bottom_shadow</item>
+</resources>

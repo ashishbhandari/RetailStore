@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">RetailStore</string>
+
+
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="no_record_to_show">No Records to Show</string>
+    <string name="btnRetry">Tap to Retry</string>
+
+    <string name="tab_item_my_category">Categories</string>
+    <string name="tab_item_last_purchase">Last Purchases</string>
+
+
+    <!-- Text of the Filter menu icon -->
+    <string name="description_cart">Cart</string>
+
+    <!-- Text of the Filter menu icon -->
+    <string name="description_item_view">View</string>
+
+    <!-- Accessibility description for a control that allows the user to close the current screen
+     and go back to the previous one. -->
+    <string name="close_and_go_back">Close and go back</string>
+
+
+    <string name="no_matching_product_available">No product available</string>
+
+    <string name="title_product_detail">Product</string>
+    <string name="title_cart_detail">Cart</string>
+
+    <string name="add_to_cart_message">Price shown is approximate, only store price or offer price will be charged</string>
+
+</resources>

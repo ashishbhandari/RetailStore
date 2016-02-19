@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/load_more_footer"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+    <!-- Login progress -->
+    <ProgressBar
+            android:id="@+id/load_more_progressBar"
+            style="?android:attr/progressBarStyleInverse"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"
+            android:layout_centerInParent="true"/>
+
+</RelativeLayout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:app="http://schemas.android.com/tools"
+        android:id="@+id/placeCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:cardElevation="1dp">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+        <com.crazymin2.retailstore.ui.widget.ForegroundLinearLayout
+                android:id="@+id/module_icon_container"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:gravity="center">
+
+
+            <ImageView
+                    android:id="@+id/thumbnail"
+                    android:maxHeight="72dp"
+                    android:maxWidth="72dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/default_logo"/>
+
+        </com.crazymin2.retailstore.ui.widget.ForegroundLinearLayout>
+
+
+        <LinearLayout
+                android:id="@+id/mainHolder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?android:selectableItemBackground"
+                android:orientation="horizontal"/>
+
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="-26dp"
+                android:layout_below="@+id/module_icon_container">
+            <LinearLayout
+                    android:id="@+id/placeNameHolder"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_gravity="bottom"
+                    android:orientation="horizontal"
+                    android:transitionName="tNameHolder">
+
+                <TextView
+                        android:id="@+id/placeName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="left"
+                        android:paddingLeft="10dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@android:color/white"/>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
+
+

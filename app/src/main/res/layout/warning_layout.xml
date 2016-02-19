@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/warning_container"
+              android:gravity="center"
+              android:background="?android:selectableItemBackground">
+
+    <ImageView android:id="@+id/signal_logo"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textColor="@color/white"
+               android:textStyle="bold|italic" android:src="@drawable/signal_logo"
+               android:layout_centerInParent="true"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/no_internet_connection"
+            android:layout_below="@+id/signal_logo"
+            android:layout_marginTop="@dimen/signal_logo_bottom_margin"
+            android:textColor="@color/no_internet_con_text_color"
+            android:textStyle="bold"
+            android:textSize="@dimen/no_con_text_size_large"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/signal_logo_warning_text"/>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btnRetry"
+            android:layout_below="@id/signal_logo_warning_text"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/internet_refresh_icon"
+            android:drawablePadding="@dimen/refresh_drawable_padding"
+            android:textAllCaps="false"
+            android:id="@+id/button_retry" android:singleLine="true"/>
+
+
+</LinearLayout>

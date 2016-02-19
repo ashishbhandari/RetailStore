@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/quantityCounter"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/decrementCounter"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="45dp"
+        android:layout_height="fill_parent"
+        android:background="@drawable/button_fill_line"
+        android:text="-" />
+
+    <EditText
+        android:id="@+id/countertext"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="false"
+        android:layout_toLeftOf="@+id/incrementCounter"
+        android:layout_toRightOf="@+id/decrementCounter"
+        android:background="@drawable/outer_line"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:gravity="center_vertical|center_horizontal" />
+
+    <Button
+        android:id="@+id/incrementCounter"
+        style="?android:attr/buttonStyleSmall"
+        android:background="@drawable/button_fill_line"
+        android:layout_width="45dp"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:text="+" />
+
+</RelativeLayout>

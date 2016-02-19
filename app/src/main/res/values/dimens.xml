@@ -1,0 +1,51 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+
+    <dimen name="headerbar_elevation">4dp</dimen>
+    <dimen name="keyline_2">72dp</dimen>
+    <dimen name="keyline_2_minus_16dp">56dp</dimen>
+
+
+    <dimen name="signal_logo_bottom_margin">10dp</dimen>
+    <dimen name="no_con_text_size_large">20sp</dimen>
+    <dimen name="refresh_drawable_padding">10dp</dimen>
+
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="spacing_normal">8dp</dimen>
+    <dimen name="spacing_micro">4dp</dimen>
+
+
+    <dimen name="home_page_margin">@dimen/padding_normal</dimen>
+
+    <dimen name="swipe_refresh_progress_bar_start_margin">-40dp</dimen>
+    <dimen name="swipe_refresh_progress_bar_end_margin">16dp</dimen>
+
+    <!-- Action Bar auto-hide-on-scroll behavior parameters -->
+    <dimen name="action_bar_auto_hide_min_y">152dp</dimen>
+    <dimen name="action_bar_auto_hide_sensivity">48dp</dimen>
+
+    <dimen name="stream_card_corner_radius">0dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+
+    <!--line spacing-->
+    <item name="body_1_spacing" format="float" type="dimen">1.22448979592</item>
+
+    <dimen name="product_theme_cards_dealer_image_width">72dp</dimen>
+    <item name="aspect_4_3" format="float" type="dimen">1.3333</item>
+
+    <dimen name="product_theme_cards_image_width">48dp</dimen>
+    <dimen name="product_theme_cards_image_height">48dp</dimen>
+
+    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_large">16sp</dimen>
+
+    <!-- dialog spacing -->
+    <dimen name="dialog_spacing_normal">6dp</dimen>
+    <dimen name="dialog_margin_normal">8dp</dimen>
+    <dimen name="product_image_dimension">72dp</dimen>
+
+
+</resources>
