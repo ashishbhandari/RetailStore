@@ -9,11 +9,16 @@ Third party libraries:
 
 1- Butter Knife Version 7.0.1
    http://jakewharton.github.io/butterknife/
+   
 2- Glide version 3.5.2
    https://github.com/bumptech/glide
+   
 3- CardView Version 23.0.1
+
 4- RecyclerView Version 23.0.1
+
 5- Pallete  Version 23.0.1
+
 6- Flat icons
 
 
@@ -22,9 +27,13 @@ Explanation:
 Retail store has been designed to keep certain things in mind:
 
 1- Simple user interface
+
 2- Better transition effect
+
 3- Smooth loading of images
+
 4- And of course without crash :)
+
 
 * All third parties library licenses are mentioned in licenses.html file inside assets directory of a project.
 * Product icons are free to use which has been downloaded from http://www.flaticon.com/ with their licenses.
