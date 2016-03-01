@@ -1,6 +1,6 @@
 # RetailStore
 
-**NOTE**: This repository demonstrates the **Model View Presenter** architecture for cart management and was inspired by Antonio Leiva's Android MVP.
+**NOTE**: This repository demonstrates the **Model View Presenter** architecture for cart management and was inspired by [Antonio Leiva's Android MVP](https://github.com/antoniolg/androidmvp)
 
 
 This Solution has been developed completely using android native and with keeping good design in mind.
