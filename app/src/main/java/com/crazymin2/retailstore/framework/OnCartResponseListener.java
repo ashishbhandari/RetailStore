@@ -8,6 +8,12 @@ public interface OnCartResponseListener {
 
     void onError();
 
-    void onDisplayItemsOnCart(List<String> items);
+    void onSuccessfulRemoved(Object item);
+
+    void onDisplayItemsOnCart(List items);
+
+    void onDisplayCategoryItems(List items);
+
+    void onDisplayTotalItem(int size);
 
 }

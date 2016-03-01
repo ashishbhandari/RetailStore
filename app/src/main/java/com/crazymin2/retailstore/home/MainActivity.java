@@ -12,11 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.crazymin2.retailstore.R;
+import com.crazymin2.retailstore.framework.CartPresenter;
+import com.crazymin2.retailstore.framework.CartPresenterImpl;
+import com.crazymin2.retailstore.framework.CartView;
 import com.crazymin2.retailstore.ui.BaseActivity;
 import com.crazymin2.retailstore.ui.ProductActivity;
 import com.crazymin2.retailstore.ui.widget.CollectionRecyclerView;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import butterknife.Bind;
@@ -35,6 +39,7 @@ public class MainActivity extends BaseActivity implements CommonTabFragment.TabL
     ViewPager mViewPager;
     @Bind(R.id.sliding_tabs)
     TabLayout mTabLayout;
+
 
     OurViewPagerAdapter mViewPagerAdapter = null;
     private Set<CommonTabFragment> mTabFragments = new HashSet<CommonTabFragment>();
@@ -55,7 +60,6 @@ public class MainActivity extends BaseActivity implements CommonTabFragment.TabL
         ButterKnife.bind(this);
 
         renderTabsWithPage();
-
     }
 
     private void renderTabsWithPage() {

@@ -2,37 +2,28 @@ package com.crazymin2.retailstore.ui;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.LoaderManager;
-import android.content.AsyncTaskLoader;
-import android.content.Context;
 import android.content.Intent;
-import android.content.Loader;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.crazymin2.retailstore.R;
-import com.crazymin2.retailstore.database.DatabaseManager;
 import com.crazymin2.retailstore.home.data.Product;
-import com.crazymin2.retailstore.home.data.ShoppingCartHelper;
 import com.crazymin2.retailstore.ui.widget.CollectionView;
 import com.crazymin2.retailstore.ui.widget.DrawShadowFrameLayout;
 import com.crazymin2.retailstore.util.LogUtils;
 import com.crazymin2.retailstore.util.UIUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-import static com.crazymin2.retailstore.util.LogUtils.LOGD;
-
 /**
  * Created by ashish (Min2) on 06/02/16.
  */
-public class ProductFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Product>>{
+public class ProductFragment extends Fragment /*implements LoaderManager.LoaderCallbacks<List<Product>>*/ {
 
     private static final String TAG = LogUtils.makeLogTag(ProductFragment.class);
     private static final int TAG_METADATA_TOKEN = 0x8;
@@ -84,7 +75,7 @@ public class ProductFragment extends Fragment implements LoaderManager.LoaderCal
             }
         });
         mCollectionView.setAdapter(mAdapter);
-        getLoaderManager().initLoader(0, null, this);
+//        getLoaderManager().initLoader(0, null, this);
     }
 
     @Override
@@ -118,7 +109,7 @@ public class ProductFragment extends Fragment implements LoaderManager.LoaderCal
         }
     }
 
-    @Override
+    /*@Override
     public Loader<List<Product>> onCreateLoader(int id, Bundle args) {
         return new MyPurchaseListLoader(getActivity());
     }
@@ -131,7 +122,7 @@ public class ProductFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public void onLoaderReset(Loader<List<Product>> loader) {
         mAdapter.setData(null);
-    }
+    }*/
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -146,14 +137,23 @@ public class ProductFragment extends Fragment implements LoaderManager.LoaderCal
         }
     }
 
-    public void restartLoader() {
+    /*public void restartLoader() {
         getLoaderManager().restartLoader(0, null, this);
+    }*/
+
+
+    public void refreshData(List data) {
+        mAdapter.setData(data);
     }
 
+    public void refreshFragmentAdapter() {
 
-    /**
-     * A custom Loader that loads all of the installed applications.
-     */
+        mCollectionView.invalidate();
+    }
+
+   /* *//**
+     * A custom Loader that loads all of cart data from local database
+     *//*
     public static class MyPurchaseListLoader extends AsyncTaskLoader<List<Product>> {
 
         List<Product> mApps;
@@ -166,10 +166,10 @@ public class ProductFragment extends Fragment implements LoaderManager.LoaderCal
 
         }
 
-        /**
-         * This is where the bulk of our work is done. This function is called in a background thread
-         * and should generate a new set of data to be published by the loader.
-         */
+        *//**
+     * This is where the bulk of our work is done. This function is called in a background thread
+     * and should generate a new set of data to be published by the loader.
+     *//*
         @Override
         public List<Product> loadInBackground() {
 
@@ -199,10 +199,10 @@ public class ProductFragment extends Fragment implements LoaderManager.LoaderCal
             return productsByCategory;
         }
 
-        /**
-         * Called when there is new data to deliver to the client. The super class will take care of
-         * delivering it; the implementation here just adds a little more logic.
-         */
+        *//**
+     * Called when there is new data to deliver to the client. The super class will take care of
+     * delivering it; the implementation here just adds a little more logic.
+     *//*
         @Override
         public void deliverResult(List<Product> apps) {
             if (isReset()) {
@@ -229,9 +229,9 @@ public class ProductFragment extends Fragment implements LoaderManager.LoaderCal
             }
         }
 
-        /**
-         * Handles a request to start the Loader.
-         */
+        *//**
+     * Handles a request to start the Loader.
+     *//*
         @Override
         protected void onStartLoading() {
             if (mApps != null) {
@@ -246,18 +246,18 @@ public class ProductFragment extends Fragment implements LoaderManager.LoaderCal
             }
         }
 
-        /**
-         * Handles a request to stop the Loader.
-         */
+        *//**
+     * Handles a request to stop the Loader.
+     *//*
         @Override
         protected void onStopLoading() {
             // Attempt to cancel the current load task if possible.
             cancelLoad();
         }
 
-        /**
-         * Handles a request to cancel a load.
-         */
+        *//**
+     * Handles a request to cancel a load.
+     *//*
         @Override
         public void onCanceled(List<Product> apps) {
             super.onCanceled(apps);
@@ -267,9 +267,9 @@ public class ProductFragment extends Fragment implements LoaderManager.LoaderCal
             onReleaseResources(apps);
         }
 
-        /**
-         * Handles a request to completely reset the Loader.
-         */
+        *//**
+     * Handles a request to completely reset the Loader.
+     *//*
         @Override
         protected void onReset() {
             super.onReset();
@@ -285,13 +285,13 @@ public class ProductFragment extends Fragment implements LoaderManager.LoaderCal
 
         }
 
-        /**
-         * Helper function to take care of releasing resources associated with an actively loaded data
-         * set.
-         */
+        *//**
+     * Helper function to take care of releasing resources associated with an actively loaded data
+     * set.
+     *//*
         protected void onReleaseResources(List<Product> apps) {
             // For a simple List<> there is nothing to do. For something
             // like a Cursor, we would close it here.
         }
-    }
+    }*/
 }

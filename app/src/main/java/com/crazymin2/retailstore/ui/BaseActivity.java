@@ -40,15 +40,19 @@ import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.crazymin2.retailstore.R;
 import com.crazymin2.retailstore.cart.CartActivity;
-import com.crazymin2.retailstore.database.DatabaseManager;
+import com.crazymin2.retailstore.framework.CartPresenter;
+import com.crazymin2.retailstore.framework.CartPresenterImpl;
+import com.crazymin2.retailstore.framework.CartView;
 import com.crazymin2.retailstore.ui.widget.MultiSwipeRefreshLayout;
 import com.crazymin2.retailstore.util.MenuCounterDrawable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
@@ -61,7 +65,7 @@ import static com.crazymin2.retailstore.util.LogUtils.makeLogTag;
  * A base activity that handles common functionality in the app. This includes the
  * navigation drawer, login and authentication, Action Bar tweaks, amongst others.
  */
-public abstract class BaseActivity extends AppCompatActivity implements MultiSwipeRefreshLayout.CanChildScrollUpCallback, Toolbar.OnMenuItemClickListener {
+public abstract class BaseActivity extends AppCompatActivity implements MultiSwipeRefreshLayout.CanChildScrollUpCallback, Toolbar.OnMenuItemClickListener, CartView {
 
 
     private static final String TAG = makeLogTag(BaseActivity.class);
@@ -102,16 +106,20 @@ public abstract class BaseActivity extends AppCompatActivity implements MultiSwi
 
     private int mActionBarAutoHideSignal = 0;
 
+    //--- android MVP ---//
+    private Menu menu;
+    public CartPresenter cartPresenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
         }
+        cartPresenter = new CartPresenterImpl(this);
     }
 
     @Override
@@ -128,6 +136,14 @@ public abstract class BaseActivity extends AppCompatActivity implements MultiSwi
         } else {
             LOGW(TAG, "No view with ID main_content to fade in.");
         }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // this will help to load items in cart for all activity who are extending this class
+        cartPresenter.showMeItemsInCart();
     }
 
 
@@ -315,7 +331,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MultiSwi
      * activity then don't define one and this method will use back button functionality. If "Up"
      * functionality is still desired for activities without parents then use
      * {@code syntheticParentActivity} to define one dynamically.
-     * <p/>
+     * <p>
      * Note: Up navigation intents are represented by a back arrow in the top left of the Toolbar
      * in Material Design guidelines.
      *
@@ -378,20 +394,6 @@ public abstract class BaseActivity extends AppCompatActivity implements MultiSwi
         if (mStatusBarColorAnimator != null) {
             mStatusBarColorAnimator.cancel();
         }
-//        mStatusBarColorAnimator = ObjectAnimator.ofInt(
-//                (mDrawerLayout != null) ? mDrawerLayout : mLUtils,
-//                (mDrawerLayout != null) ? "statusBarBackgroundColor" : "statusBarColor",
-//                shown ? Color.BLACK : mNormalStatusBarColor,
-//                shown ? mNormalStatusBarColor : Color.BLACK)
-//                .setDuration(250);
-//        if (mDrawerLayout != null) {
-//            mStatusBarColorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//                @Override
-//                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-//                    ViewCompat.postInvalidateOnAnimation(mDrawerLayout);
-//                }
-//            });
-//        }
         mStatusBarColorAnimator.setEvaluator(ARGB_EVALUATOR);
         mStatusBarColorAnimator.start();
 
@@ -425,31 +427,28 @@ public abstract class BaseActivity extends AppCompatActivity implements MultiSwi
         return false;
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         if (this instanceof CartActivity) {
             return true;
         }
+        this.menu = menu;
 
         // Add the filter & search buttons to the toolbar.
         Toolbar toolbar = getActionBarToolbar();
         toolbar.inflateMenu(R.menu.home_act_filtered);
         toolbar.setOnMenuItemClickListener(this);
-        displayCartCounter(menu);
+        cartPresenter.countCartItems();
         return true;
     }
 
-    /**
-     * @param menu
-     */
-    protected void displayCartCounter(Menu menu) {
+    protected void showRedBadgeCounter(int count) {
         // Get the notifications MenuItem and LayerDrawable (layer-list)
         MenuItem item = menu.findItem(R.id.menu_cart);
         LayerDrawable icon = (LayerDrawable) item.getIcon();
         // Update LayerDrawable's MenuCounterDrawable
-        setBadgeCount(this, icon, DatabaseManager.getInstance().getProductCount());
+        setBadgeCount(this, icon, count/*DatabaseManager.getInstance().getProductCount()*/);
     }
 
     public void setBadgeCount(Context context, LayerDrawable icon, int count) {
@@ -480,4 +479,32 @@ public abstract class BaseActivity extends AppCompatActivity implements MultiSwi
         return false;
     }
 
+    @Override
+    public void displayCounter(int size) {
+        if (menu != null) {
+            showRedBadgeCounter(size);
+        } else {
+            Toast.makeText(this, "menu object is null", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void displayCartItems(List items) {
+        // in order to view cart items override in child classes
+    }
+
+    @Override
+    public void displayCategoryItems(List items) {
+        // in order to avail this feature access in child class
+    }
+
+    @Override
+    public void onSuccessfulDeletion(Object item) {
+
+    }
+
+    @Override
+    public void onProductActionResponse(boolean isActionSuccessful) {
+
+    }
 }

@@ -24,6 +24,7 @@ import com.crazymin2.retailstore.database.DatabaseManager;
 import com.crazymin2.retailstore.home.data.Product;
 import com.crazymin2.retailstore.home.data.ShoppingCartHelper;
 import com.crazymin2.retailstore.ui.AddCartDialogActivity;
+import com.crazymin2.retailstore.ui.BaseActivity;
 import com.crazymin2.retailstore.ui.widget.CollectionView;
 import com.crazymin2.retailstore.ui.widget.DrawShadowFrameLayout;
 import com.crazymin2.retailstore.util.ImageLoader;
@@ -39,7 +40,7 @@ import butterknife.ButterKnife;
 /**
  * Created by ashish (Min2) on 06/02/16.
  */
-public class CartFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Product>> {
+public class CartFragment extends Fragment /*implements LoaderManager.LoaderCallbacks<List<Product>>*/ {
 
     private static final String TAG = LogUtils.makeLogTag(CartFragment.class);
 
@@ -89,18 +90,21 @@ public class CartFragment extends Fragment implements LoaderManager.LoaderCallba
             public void onDeletePressed(int position) {
                 Product product = mAdapter.getItem(position);
 
-                boolean deleteCartProduct = DatabaseManager.getInstance().deleteCartProduct(product);
-                if (deleteCartProduct) {
-                    ShoppingCartHelper.getInstance().changeState(true);
-                    Toast.makeText(getActivity(), "Item removed from cart", Toast.LENGTH_SHORT).show();
-                    mAdapter.remove(product);
-                    refreshAdapter();
-                }
+                ((BaseActivity) getActivity()).cartPresenter.removeItem(product);
+
+
+//                boolean deleteCartProduct = DatabaseManager.getInstance().deleteCartProduct(product);
+//                if (deleteCartProduct) {
+//                    ShoppingCartHelper.getInstance().changeState(true);
+//                    Toast.makeText(getActivity(), "Item removed from cart", Toast.LENGTH_SHORT).show();
+//                    mAdapter.remove(product);
+//                    refreshAdapter();
+//                }
             }
         });
         // Set the new data in the adapter.
         mCollectionView.setAdapter(mAdapter);
-        getLoaderManager().initLoader(0, null, this);
+//        getLoaderManager().initLoader(0, null, this);
     }
 
     @Override
@@ -140,21 +144,21 @@ public class CartFragment extends Fragment implements LoaderManager.LoaderCallba
         }
     }
 
-    @Override
-    public Loader<List<Product>> onCreateLoader(int id, Bundle args) {
-        return new MyPurchaseListLoader(getActivity());
-    }
-
-    @Override
-    public void onLoadFinished(Loader<List<Product>> loader, List<Product> data) {
-        // Set the new data in the adapter.
-        mAdapter.setData(data);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<List<Product>> loader) {
-        mAdapter.setData(null);
-    }
+//    @Override
+//    public Loader<List<Product>> onCreateLoader(int id, Bundle args) {
+//        return new MyPurchaseListLoader(getActivity());
+//    }
+//
+//    @Override
+//    public void onLoadFinished(Loader<List<Product>> loader, List<Product> data) {
+//        // Set the new data in the adapter.
+//        mAdapter.setData(data);
+//    }
+//
+//    @Override
+//    public void onLoaderReset(Loader<List<Product>> loader) {
+//        mAdapter.setData(null);
+//    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -165,128 +169,138 @@ public class CartFragment extends Fragment implements LoaderManager.LoaderCallba
     }
 
 
-    /**
-     * A custom Loader that loads all of the installed applications.
-     */
-    public static class MyPurchaseListLoader extends AsyncTaskLoader<List<Product>> {
+//    /**
+//     * A custom Loader that loads all of the installed applications.
+//     */
+//    public static class MyPurchaseListLoader extends AsyncTaskLoader<List<Product>> {
+//
+//        List<Product> mApps;
+//
+//        private Context mContext;
+//
+//        public MyPurchaseListLoader(Context context) {
+//            super(context);
+//            mContext = context;
+//
+//        }
+//
+//        /**
+//         * This is where the bulk of our work is done. This function is called in a background thread
+//         * and should generate a new set of data to be published by the loader.
+//         */
+//        @Override
+//        public List<Product> loadInBackground() {
+//
+//            ArrayList<Product> productsByCategory = DatabaseManager.getInstance().getCartProducts();
+//            return productsByCategory;
+//
+//        }
+//
+//        /**
+//         * Called when there is new data to deliver to the client. The super class will take care of
+//         * delivering it; the implementation here just adds a little more logic.
+//         */
+//        @Override
+//        public void deliverResult(List<Product> apps) {
+//            if (isReset()) {
+//                // An async query came in while the loader is stopped. We
+//                // don't need the result.
+//                if (apps != null) {
+//                    onReleaseResources(apps);
+//                }
+//            }
+//            List<Product> oldApps = apps;
+//            mApps = apps;
+//
+//            if (isStarted()) {
+//                // If the Loader is currently started, we can immediately
+//                // deliver its results.
+//                super.deliverResult(apps);
+//            }
+//
+//            // At this point we can release the resources associated with
+//            // 'oldApps' if needed; now that the new result is delivered we
+//            // know that it is no longer in use.
+//            if (oldApps != null) {
+//                onReleaseResources(oldApps);
+//            }
+//        }
+//
+//        /**
+//         * Handles a request to start the Loader.
+//         */
+//        @Override
+//        protected void onStartLoading() {
+//            if (mApps != null) {
+//                // If we currently have a result available, deliver it
+//                // immediately.
+//                deliverResult(mApps);
+//            }
+//
+//            if (takeContentChanged() || mApps == null) {
+//                // If the data has changed since the last time it was loaded
+//                // or is not currently available, start a load.
+//                forceLoad();
+//            }
+//        }
+//
+//        /**
+//         * Handles a request to stop the Loader.
+//         */
+//        @Override
+//        protected void onStopLoading() {
+//            // Attempt to cancel the current load task if possible.
+//            cancelLoad();
+//        }
+//
+//        /**
+//         * Handles a request to cancel a load.
+//         */
+//        @Override
+//        public void onCanceled(List<Product> apps) {
+//            super.onCanceled(apps);
+//
+//            // At this point we can release the resources associated with 'apps'
+//            // if needed.
+//            onReleaseResources(apps);
+//        }
+//
+//        /**
+//         * Handles a request to completely reset the Loader.
+//         */
+//        @Override
+//        protected void onReset() {
+//            super.onReset();
+//
+//            // Ensure the loader is stopped
+//            onStopLoading();
+//
+//            // At this point we can release the resources associated with 'apps'
+//            // if needed.
+//            if (mApps != null) {
+//                onReleaseResources(mApps);
+//                mApps = null;
+//            }
+//        }
+//
+//        /**
+//         * Helper function to take care of releasing resources associated with an actively loaded data
+//         * set.
+//         */
+//        protected void onReleaseResources(List<Product> apps) {
+//            // For a simple List<> there is nothing to do. For something
+//            // like a Cursor, we would close it here.
+//        }
+//    }
 
-        List<Product> mApps;
+    public void refreshData(List data) {
+        mAdapter.setData(data);
+    }
 
-        private Context mContext;
-
-        public MyPurchaseListLoader(Context context) {
-            super(context);
-            mContext = context;
-
-        }
-
-        /**
-         * This is where the bulk of our work is done. This function is called in a background thread
-         * and should generate a new set of data to be published by the loader.
-         */
-        @Override
-        public List<Product> loadInBackground() {
-
-            ArrayList<Product> productsByCategory = DatabaseManager.getInstance().getCartProducts();
-            return productsByCategory;
-
-        }
-
-        /**
-         * Called when there is new data to deliver to the client. The super class will take care of
-         * delivering it; the implementation here just adds a little more logic.
-         */
-        @Override
-        public void deliverResult(List<Product> apps) {
-            if (isReset()) {
-                // An async query came in while the loader is stopped. We
-                // don't need the result.
-                if (apps != null) {
-                    onReleaseResources(apps);
-                }
-            }
-            List<Product> oldApps = apps;
-            mApps = apps;
-
-            if (isStarted()) {
-                // If the Loader is currently started, we can immediately
-                // deliver its results.
-                super.deliverResult(apps);
-            }
-
-            // At this point we can release the resources associated with
-            // 'oldApps' if needed; now that the new result is delivered we
-            // know that it is no longer in use.
-            if (oldApps != null) {
-                onReleaseResources(oldApps);
-            }
-        }
-
-        /**
-         * Handles a request to start the Loader.
-         */
-        @Override
-        protected void onStartLoading() {
-            if (mApps != null) {
-                // If we currently have a result available, deliver it
-                // immediately.
-                deliverResult(mApps);
-            }
-
-            if (takeContentChanged() || mApps == null) {
-                // If the data has changed since the last time it was loaded
-                // or is not currently available, start a load.
-                forceLoad();
-            }
-        }
-
-        /**
-         * Handles a request to stop the Loader.
-         */
-        @Override
-        protected void onStopLoading() {
-            // Attempt to cancel the current load task if possible.
-            cancelLoad();
-        }
-
-        /**
-         * Handles a request to cancel a load.
-         */
-        @Override
-        public void onCanceled(List<Product> apps) {
-            super.onCanceled(apps);
-
-            // At this point we can release the resources associated with 'apps'
-            // if needed.
-            onReleaseResources(apps);
-        }
-
-        /**
-         * Handles a request to completely reset the Loader.
-         */
-        @Override
-        protected void onReset() {
-            super.onReset();
-
-            // Ensure the loader is stopped
-            onStopLoading();
-
-            // At this point we can release the resources associated with 'apps'
-            // if needed.
-            if (mApps != null) {
-                onReleaseResources(mApps);
-                mApps = null;
-            }
-        }
-
-        /**
-         * Helper function to take care of releasing resources associated with an actively loaded data
-         * set.
-         */
-        protected void onReleaseResources(List<Product> apps) {
-            // For a simple List<> there is nothing to do. For something
-            // like a Cursor, we would close it here.
-        }
+    public void removeData(Object data) {
+        Toast.makeText(getActivity(), "Item removed from cart", Toast.LENGTH_SHORT).show();
+        mAdapter.remove((Product) data);
+        refreshAdapter();
     }
 
 

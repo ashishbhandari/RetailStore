@@ -12,6 +12,8 @@ import com.crazymin2.retailstore.ui.BaseActivity;
 import com.crazymin2.retailstore.ui.widget.DrawShadowFrameLayout;
 import com.crazymin2.retailstore.util.LogUtils;
 
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -24,6 +26,7 @@ public class CartActivity extends BaseActivity {
 
     @Bind(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
+    private CartFragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,7 @@ public class CartActivity extends BaseActivity {
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow_flipped, GravityCompat.END);
 
         registerHideableHeaderView(findViewById(R.id.headerbar));
+        mFragment = (CartFragment) getFragmentManager().findFragmentById(R.id.product_request_frag);
 
         // Add the back button to the toolbar.
         Toolbar toolbar = getActionBarToolbar();
@@ -45,7 +49,6 @@ public class CartActivity extends BaseActivity {
                 navigateUpOrBack(CartActivity.this, null);
             }
         });
-
     }
 
     @Override
@@ -71,4 +74,29 @@ public class CartActivity extends BaseActivity {
         DrawShadowFrameLayout frame = (DrawShadowFrameLayout) findViewById(R.id.main_content);
         frame.setShadowVisible(shown, shown);
     }
+
+    @Override
+    protected void onDestroy() {
+        cartPresenter.onDestroy();
+        super.onDestroy();
+    }
+
+    @Override
+    public void displayCartItems(List items) {
+        super.displayCartItems(items);
+        mFragment.refreshData(items);
+    }
+
+    @Override
+    public void onSuccessfulDeletion(Object item) {
+        super.onSuccessfulDeletion(item);
+        mFragment.removeData(item);
+    }
+
+//    @Override
+//    public void onProductActionResponse(boolean isProductDeleted) {
+//        super.onProductActionResponse(isProductDeleted);
+//        Toast.makeText(this, "Item removed from cart : " + isProductDeleted, Toast.LENGTH_SHORT).show();
+//        mFragment.refreshAdapter();
+//    }
 }

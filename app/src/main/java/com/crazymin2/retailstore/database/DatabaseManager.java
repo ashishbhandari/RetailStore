@@ -212,9 +212,7 @@ public class DatabaseManager {
             if (productId == -1) {
                 return false;
             }
-
             return true;
-
         } catch (Exception e) {
             e.printStackTrace();
             LOGE(TAG, "Exception in saving product in cart ", e);

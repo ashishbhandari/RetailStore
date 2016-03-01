@@ -3,7 +3,6 @@ package com.crazymin2.retailstore.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,14 +12,13 @@ import android.widget.Toast;
 
 import com.crazymin2.retailstore.CommonConstants;
 import com.crazymin2.retailstore.R;
-import com.crazymin2.retailstore.database.DatabaseManager;
 import com.crazymin2.retailstore.home.data.Product;
 import com.crazymin2.retailstore.util.ImageLoader;
 
 import static com.crazymin2.retailstore.util.LogUtils.LOGD;
 import static com.crazymin2.retailstore.util.LogUtils.makeLogTag;
 
-public class AddCartDialogActivity extends AppCompatActivity implements OnClickListener {
+public class AddCartDialogActivity extends BaseActivity implements OnClickListener {
 
     private static final String TAG = makeLogTag(AddCartDialogActivity.class);
 
@@ -90,7 +88,6 @@ public class AddCartDialogActivity extends AppCompatActivity implements OnClickL
             }
         });
 
-
         TextView itemName = (TextView) findViewById(R.id.itemName);
         TextView itemPrice = (TextView) findViewById(R.id.itemPrice);
         if (selectedItem != null) {
@@ -116,8 +113,13 @@ public class AddCartDialogActivity extends AppCompatActivity implements OnClickL
     }
 
     private void saveProduct() {
-        boolean persistProduct = DatabaseManager.getInstance().saveCartProduct(selectedItem);
-        if (persistProduct) {
+        cartPresenter.addItem(selectedItem);
+    }
+
+    @Override
+    public void onProductActionResponse(boolean isActionSuccessful) {
+        super.onProductActionResponse(isActionSuccessful);
+        if (isActionSuccessful) {
             Toast.makeText(this, "Item added to cart", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent();
             intent.putExtra(CART_STATUS, true);
@@ -128,7 +130,6 @@ public class AddCartDialogActivity extends AppCompatActivity implements OnClickL
             LOGD(TAG, "Item not added into local database");
         }
     }
-
 
     @Override
     public void onClick(View v) {
@@ -154,4 +155,9 @@ public class AddCartDialogActivity extends AppCompatActivity implements OnClickL
 
     }
 
+    @Override
+    protected void onDestroy() {
+        cartPresenter.onDestroy();
+        super.onDestroy();
+    }
 }

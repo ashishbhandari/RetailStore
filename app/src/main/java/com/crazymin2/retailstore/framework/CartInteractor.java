@@ -11,4 +11,8 @@ public interface CartInteractor {
 
     void getTotalItemsInCart(OnCartResponseListener listener);
 
+    void getCategoryItems(OnCartResponseListener listener, int categoryId);
+
+    void countTotalItems(OnCartResponseListener listener);
+
 }

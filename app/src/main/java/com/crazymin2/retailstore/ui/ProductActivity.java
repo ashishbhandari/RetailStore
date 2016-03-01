@@ -8,9 +8,10 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.crazymin2.retailstore.R;
-import com.crazymin2.retailstore.home.data.ShoppingCartHelper;
 import com.crazymin2.retailstore.ui.widget.DrawShadowFrameLayout;
 import com.crazymin2.retailstore.util.LogUtils;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -18,7 +19,7 @@ import butterknife.ButterKnife;
 /**
  * Created by ashish (Min2) on 06/02/16.
  */
-public class ProductActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener, ShoppingCartHelper.OnCustomStateListener {
+public class ProductActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener/*, ShoppingCartHelper.OnCustomStateListener*/ {
 
 
     private static final String TAG = LogUtils.makeLogTag(ProductActivity.class);
@@ -41,7 +42,7 @@ public class ProductActivity extends BaseActivity implements Toolbar.OnMenuItemC
         setContentView(R.layout.product_act);
         ButterKnife.bind(this);
 
-        registerListener();
+//        registerListener();
 
         categoryId = getIntent().getIntExtra(SELECTED_CATEGORY_ID, 0);
 
@@ -59,7 +60,7 @@ public class ProductActivity extends BaseActivity implements Toolbar.OnMenuItemC
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                unregisterListener();
+//                unregisterListener();
                 navigateUpOrBack(ProductActivity.this, null);
             }
         });
@@ -68,7 +69,7 @@ public class ProductActivity extends BaseActivity implements Toolbar.OnMenuItemC
 
     @Override
     public void onBackPressed() {
-        unregisterListener();
+//        unregisterListener();
         if (mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.END)) {
             mDrawerLayout.closeDrawer(GravityCompat.END);
         } else {
@@ -76,19 +77,19 @@ public class ProductActivity extends BaseActivity implements Toolbar.OnMenuItemC
         }
     }
 
-    /**
-     * this method will help you to unregister event listener for product deletion from cart
-     */
-    private void unregisterListener() {
-        ShoppingCartHelper.getInstance().setListener(null);
-    }
+//    /**
+//     * this method will help you to unregister event listener for product deletion from cart
+//     */
+//    private void unregisterListener() {
+//        ShoppingCartHelper.getInstance().setListener(null);
+//    }
 
-    /**
-     * this method will help you to register event listener for product deletion from cart
-     */
-    private void registerListener() {
-        ShoppingCartHelper.getInstance().setListener(this);
-    }
+//    /**
+//     * this method will help you to register event listener for product deletion from cart
+//     */
+//    private void registerListener() {
+//        ShoppingCartHelper.getInstance().setListener(this);
+//    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -107,11 +108,28 @@ public class ProductActivity extends BaseActivity implements Toolbar.OnMenuItemC
     @Override
     protected void onResume() {
         super.onResume();
+        cartPresenter.showMeCategoryItems(categoryId);
+        // for refreshing the cart counter on action bar toolbar
         supportInvalidateOptionsMenu();
+        mFragment.refreshFragmentAdapter();
     }
 
     @Override
-    public void stateChanged() {
-        mFragment.restartLoader();
+    protected void onDestroy() {
+        cartPresenter.onDestroy();
+        super.onDestroy();
+    }
+
+//    @Override
+//    public void stateChanged() {
+//        // refreshing adapter if any product deleted from cart
+////        mFragment.restartLoader();
+//        cartPresenter.showMeItemsInCart();
+//    }
+
+    @Override
+    public void displayCategoryItems(List items) {
+        super.displayCategoryItems(items);
+        mFragment.refreshData(items);
     }
 }

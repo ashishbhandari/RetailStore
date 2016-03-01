@@ -5,7 +5,9 @@ public class ShoppingCartHelper {
 
 
     public interface OnCustomStateListener {
+
         void stateChanged();
+
     }
 
     private OnCustomStateListener mListener;
@@ -24,26 +26,22 @@ public class ShoppingCartHelper {
         return singleInstance;
     }
 
-    public void setListener(OnCustomStateListener listener) {
-        mListener = listener;
-    }
-
-    public void changeState(boolean state) {
-        if(mListener != null) {
-            mState = state;
-            notifyStateChange();
-        }
-    }
-
-    public boolean getState() {
-        return mState;
-    }
-
-    private void notifyStateChange() {
-        mListener.stateChanged();
-    }
-
-
-
-
+//    public void setListener(OnCustomStateListener listener) {
+//        mListener = listener;
+//    }
+//
+//    public void changeState(boolean state) {
+//        if (mListener != null) {
+//            mState = state;
+//            notifyStateChange();
+//        }
+//    }
+//
+//    public boolean getState() {
+//        return mState;
+//    }
+//
+//    private void notifyStateChange() {
+//        mListener.stateChanged();
+//    }
 }
