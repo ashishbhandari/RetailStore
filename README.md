@@ -1,6 +1,8 @@
 # RetailStore
 
-This Solution has been developed completely using android native and with keeping material design in mind.
+**NOTE**: This repository demonstrates the Model View Presenter architecture for cart management and was inspired by Antonio Leiva's Android MVP
+
+This Solution has been developed completely using android native and with keeping good design in mind.
 
 
 External libraries and tools has been used in order to solve retail store problem:
